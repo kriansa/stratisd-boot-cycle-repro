@@ -10,7 +10,7 @@ SNAPSHOT_IMAGE=""
 CLOUDINIT_ISO=""
 SSH_PORT=10022
 SSH_USER=fedora
-SSH_PASS=fedora
+SSH_KEY="${SCRIPT_DIR}/cloud-init/id_ed25519"
 QEMU_PID=""
 
 RED='\033[0;31m'
@@ -42,7 +42,8 @@ cleanup() {
 trap cleanup EXIT
 
 ssh_cmd() {
-    sshpass -p "$SSH_PASS" ssh \
+    ssh -i "$SSH_KEY" \
+        -o IdentitiesOnly=yes \
         -o StrictHostKeyChecking=no \
         -o UserKnownHostsFile=/dev/null \
         -o LogLevel=ERROR \
@@ -54,7 +55,8 @@ ssh_cmd() {
 
 scp_to_vm() {
     local src="$1" dst="$2"
-    sshpass -p "$SSH_PASS" scp \
+    scp -i "$SSH_KEY" \
+        -o IdentitiesOnly=yes \
         -o StrictHostKeyChecking=no \
         -o UserKnownHostsFile=/dev/null \
         -o LogLevel=ERROR \
@@ -92,7 +94,7 @@ assert() {
 
 # --- preflight checks ---
 
-for cmd in qemu-system-x86_64 qemu-img sshpass; do
+for cmd in qemu-system-x86_64 qemu-img; do
     if ! command -v "$cmd" &>/dev/null; then
         echo "error: $cmd not found" >&2
         exit 1

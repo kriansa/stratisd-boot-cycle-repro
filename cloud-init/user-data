@@ -1,13 +1,13 @@
 #cloud-config
 users:
   - name: fedora
-    plain_text_passwd: fedora
-    lock_passwd: false
+    lock_passwd: true
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
-    ssh_authorized_keys: []
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICgf5S7iv2PRwtnqzfvJDzQ4gkPDiEjwH5GSHj7LN+NE stratisd-repro
 
-ssh_pwauth: true
+ssh_pwauth: false
 
 runcmd:
   - systemctl enable --now sshd

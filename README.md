@@ -19,7 +19,6 @@ downstream.service → (After) stratisd.service → (After) multi-user.target �
 ## Prerequisites
 
 - QEMU with KVM support
-- `sshpass`
 - `genisoimage`, `mkisofs`, or `xorrisofs` (for cloud-init ISO)
 - Internet access (downloads Fedora Cloud image on first run, ~500 MB cached in `.cache/`)
 
