@@ -1,0 +1,13 @@
+[Unit]
+Description=Simulated network fstab setup (like Clevis/Tang)
+DefaultDependencies=no
+After=network-online.target
+Before=remote-fs-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sleep 3
+ExecStart=/bin/touch /tmp/network-fstab-completed
+
+[Install]
+WantedBy=remote-fs.target

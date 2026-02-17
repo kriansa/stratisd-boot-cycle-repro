@@ -1,0 +1,13 @@
+#cloud-config
+users:
+  - name: fedora
+    plain_text_passwd: fedora
+    lock_passwd: false
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys: []
+
+ssh_pwauth: true
+
+runcmd:
+  - systemctl enable --now sshd

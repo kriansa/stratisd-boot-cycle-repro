@@ -1,0 +1,12 @@
+[Unit]
+Description=Simulated downstream service depending on stratisd
+After=stratisd.service
+Wants=stratisd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/touch /tmp/downstream-started
+
+[Install]
+WantedBy=multi-user.target
